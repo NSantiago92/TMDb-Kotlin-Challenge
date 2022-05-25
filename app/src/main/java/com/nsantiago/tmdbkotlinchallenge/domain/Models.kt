@@ -5,7 +5,7 @@ package com.nsantiago.tmdbkotlinchallenge.domain
 data class Movie (
     val id: Int,
     val title: String,
-    val poster_path: String,
+    val poster_url: String,
     val genre_ids: List<Int>,
     val popularity: Float,
     val overview: String,

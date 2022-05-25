@@ -50,7 +50,7 @@ dependencies {
     //room
     def roomVersion = "2.4.2"
     implementation("androidx.room:room-runtime:$roomVersion")
-    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    kapt "androidx.room:room-compiler:$roomVersion"
     implementation("androidx.room:room-ktx:$roomVersion")
 
     // navigation
@@ -88,6 +88,7 @@ dependencies {
     // logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    implementation("io.coil-kt:coil-compose:2.1.0")
 
     // glide for images
     implementation 'com.github.bumptech.glide:glide:4.10.0'

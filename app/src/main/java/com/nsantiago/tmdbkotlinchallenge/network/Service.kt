@@ -11,6 +11,7 @@ import retrofit2.http.Query
 interface TMDbService {
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/"
+        const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342"
     }
     @GET("discover/movie")
     suspend fun getPopularMovies(

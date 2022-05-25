@@ -10,7 +10,7 @@ data class NetworkMovieContainer(val results: List<NetworkMovie>)
 @JsonClass(generateAdapter = true)
 data class NetworkMovie(
     val adult: Boolean,
-    val backdrop_path: String,
+    val backdrop_path: String?,
     val genre_ids: List<Int>,
     val id: Int,
     val original_language: String,
@@ -33,13 +33,13 @@ data class NetworkGenre(
     val id: Int,
     val name: String,
 )
-
+//TODO: Map genre_ids to genre name list
 fun NetworkMovieContainer.asDomainModel(): List<Movie> {
     return results.map {
         Movie(
             id = it.id,
             title = it.title,
-            poster_path = it.poster_path,
+            poster_url = TMDbService.IMAGE_BASE_URL + it.poster_path,
             genre_ids = it.genre_ids,
             popularity = it.popularity,
             overview = it.overview,
