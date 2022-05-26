@@ -11,13 +11,20 @@ import retrofit2.http.Query
 interface TMDbService {
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/"
-        const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342"
+        const val LOW_RES_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342"
+        const val HIGH_RES_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w780"
     }
     @GET("discover/movie")
     suspend fun getPopularMovies(
         @Query("page") page: Int,
         @Query("api_key") apikey: String = EnvVariables.API_KEY
     ): NetworkMovieContainer
+
+    @GET("movie/{id}")
+    suspend fun getMovieDetail(
+        @Path("id") id: Int,
+        @Query("api_key") apikey: String = EnvVariables.API_KEY
+    ): NetworkMovieDetail
 }
 
 object TMDbNetwork {

@@ -15,7 +15,11 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.nsantiago.tmdbkotlinchallenge.MovieDetailFragment"
-        android:label="fragment_movie_detail"
-        tools:layout="@layout/fragment_movie_detail" />
+        android:name="com.nsantiago.tmdbkotlinchallenge.ui.MovieDetailFragment"
+        android:label="MovieDetailFragment" >
+        <argument
+            android:name="movieId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 </navigation>

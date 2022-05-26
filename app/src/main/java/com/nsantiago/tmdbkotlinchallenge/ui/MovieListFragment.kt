@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -40,6 +42,7 @@ class MovieListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentMovieListBinding.inflate(layoutInflater)
+
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         movieListAdapter = MovieListAdapter()
@@ -64,6 +67,9 @@ class MovieListFragment : Fragment() {
         return binding.root
     }
 
+    private fun goToDetail() {
+
+    }
 
     private fun onNetworkError() {
         Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
@@ -86,6 +92,7 @@ class MovieListAdapter : ListAdapter<Movie, MovieListAdapter.MovieListViewHolder
     class MovieListViewHolder(
         private var binding: MovieListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        val movieCard = binding.movieCard
         fun bind(movie: Movie) {
             binding.movie = movie
             binding.executePendingBindings()
@@ -102,6 +109,10 @@ class MovieListAdapter : ListAdapter<Movie, MovieListAdapter.MovieListViewHolder
 
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val movie = getItem(position)
+        holder.movieCard.setOnClickListener {
+            val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieId = movie.id)
+            holder.itemView.findNavController().navigate(action)
+        }
         holder.bind(movie)
     }
 

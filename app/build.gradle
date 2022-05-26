@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -88,11 +89,8 @@ dependencies {
     // logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    //Loading images
     implementation("io.coil-kt:coil-compose:2.1.0")
-
-    // glide for images
-    implementation 'com.github.bumptech.glide:glide:4.10.0'
-    kapt 'com.github.bumptech.glide:compiler:4.7.1'
 
     //dotenv for environment variables
     implementation("io.github.cdimascio:dotenv-kotlin:6.2.2")

@@ -1,44 +1,34 @@
 package com.nsantiago.tmdbkotlinchallenge.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.nsantiago.tmdbkotlinchallenge.database.getDatabase
-import com.nsantiago.tmdbkotlinchallenge.domain.Movie
 import com.nsantiago.tmdbkotlinchallenge.repository.MoviesRepository
 import kotlinx.coroutines.launch
-import java.io.IOException
 import java.lang.IllegalArgumentException
 
-class MovieListViewModel(application: Application) : AndroidViewModel(application) {
-
+class MovieDetailViewModel(application: Application) : AndroidViewModel(application) {
     //TODO: esto hay que inyectar
     private val moviesRepository = MoviesRepository(getDatabase(application))
-    val movieList = moviesRepository.movieList
+    val movieDetail = moviesRepository.movieDetail
     val apiStatus = moviesRepository.apiStatus
 
-    init {
-        loadMovies()
-    }
-
-    private fun loadMovies() {
+    fun loadMovieDetail(id: Int) {
         viewModelScope.launch {
-            moviesRepository.refreshMovieList()
-        }
-
-    }
-
-    fun loadNextPage() {
-        viewModelScope.launch {
-                moviesRepository.loadNextPage()
+            moviesRepository.loadMovieDetail(id)
         }
     }
+
 
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(MovieListViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(MovieDetailViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return MovieListViewModel(app) as T
+                return MovieDetailViewModel(app) as T
             }
             throw IllegalArgumentException("Unable to construct view model")
         }

@@ -6,16 +6,18 @@ data class Movie (
     val id: Int,
     val title: String,
     val poster_url: String,
-    val genre_ids: List<Int>,
-    val popularity: Float,
-    val overview: String,
-    val release_date: String,
-    val adult: Boolean,
-    val vote_average: Float,
-    val vote_count: Int,
     )
-
-data class Genre (
+data class MovieDetail (
     val id: Int,
-    val name: String,
-    )
+    val title: String,
+    val posterUrl: String,
+    val backdropUrl: String,
+    val genres: List<String>,
+    val originalLanguage: String,
+    val overview: String,
+    val popularity: Float,
+    val releaseDate: String,
+    val status: String,
+    val voteCount: Float,
+    val voteAverage: Float,
+)

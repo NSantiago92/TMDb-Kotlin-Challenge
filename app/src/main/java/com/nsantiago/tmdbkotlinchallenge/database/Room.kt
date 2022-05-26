@@ -7,19 +7,14 @@ import androidx.room.*
 @Dao
 interface MovieDao {
     @Query("SELECT * FROM databasemovie WHERE id=:id")
-    fun getMovie(id: Int): LiveData<DatabaseMovie>
+    fun getMovie(id: Int): DatabaseMovie?
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie( movie:DatabaseMovie )
 }
 
-@Dao
-interface GenreDao {
-    //TODO: add queries get all and insert all
-}
-@Database(entities = [DatabaseMovie::class, DatabaseGenre::class], version = 1)
+@Database(entities = [DatabaseMovie::class], version = 1)
 abstract class MoviesDatabase: RoomDatabase() {
     abstract val movieDao: MovieDao
-    abstract val genreDao: GenreDao
 }
 
 private lateinit var INSTANCE: MoviesDatabase
