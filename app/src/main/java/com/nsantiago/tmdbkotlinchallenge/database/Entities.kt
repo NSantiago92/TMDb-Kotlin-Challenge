@@ -11,6 +11,7 @@ data class DatabaseMovie constructor(
     @PrimaryKey
     val id: Int,
     val title: String,
+    val original_title: String,
     val poster_path: String,
     val backdrop_path: String,
     val genres: String,
@@ -19,7 +20,7 @@ data class DatabaseMovie constructor(
     val popularity: Float,
     val release_date: String,
     val status: String,
-    val vote_count: Float,
+    val vote_count: Int,
     val vote_average: Float,
 )
 
@@ -28,8 +29,9 @@ fun DatabaseMovie.asDomainModel(): MovieDetail {
     return MovieDetail(
         id = id,
         title = title,
+        originalTitle = original_title,
         posterUrl = TMDbService.LOW_RES_IMAGE_BASE_URL + poster_path,
-        backdropUrl = TMDbService.LOW_RES_IMAGE_BASE_URL + backdrop_path,
+        backdropUrl = TMDbService.HIGH_RES_IMAGE_BASE_URL + backdrop_path,
         genres = genres.split(","),
         originalLanguage = original_language,
         overview = overview,

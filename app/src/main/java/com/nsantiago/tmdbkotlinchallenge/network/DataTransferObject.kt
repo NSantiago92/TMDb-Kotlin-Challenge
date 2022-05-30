@@ -33,8 +33,9 @@ data class NetworkMovieDetail(
     val popularity: Float,
     val release_date: String,
     val status: String,
-    val vote_count: Float,
+    val vote_count: Int,
     val vote_average: Float,
+    val original_title: String,
     )
 
 fun NetworkMovieDetail.asDomainModel(): MovieDetail {
@@ -42,7 +43,7 @@ fun NetworkMovieDetail.asDomainModel(): MovieDetail {
         id = id,
         title = title,
         posterUrl = TMDbService.LOW_RES_IMAGE_BASE_URL + poster_path,
-        backdropUrl = TMDbService.LOW_RES_IMAGE_BASE_URL + backdrop_path,
+        backdropUrl = TMDbService.HIGH_RES_IMAGE_BASE_URL + backdrop_path,
         genres = genres.map {it.name},
         originalLanguage = original_language,
         overview = overview,
@@ -51,12 +52,14 @@ fun NetworkMovieDetail.asDomainModel(): MovieDetail {
         status = status,
         voteCount = vote_count,
         voteAverage = vote_average,
+        originalTitle = original_title
     )
 }
 fun NetworkMovieDetail.asDatabaseModel(): DatabaseMovie {
     return DatabaseMovie(
         id = id,
         title = title,
+        original_title = original_title,
         poster_path = poster_path,
         backdrop_path = backdrop_path,
         genres = genres.joinToString(",") { it.name },

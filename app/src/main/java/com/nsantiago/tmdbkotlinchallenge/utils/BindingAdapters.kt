@@ -1,11 +1,12 @@
 package com.nsantiago.tmdbkotlinchallenge.utils
 
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,8 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Movie>?) {
 }
 
 @BindingAdapter("imageUrl")
-fun setImageUrl(imageView:ImageView, url: String) {
+fun setImageUrl(imageView:ImageView, url: String?) {
+    if (url.isNullOrEmpty()) return;
     imageView.load(url) {
         placeholder(R.drawable.poster_placeholder)
         error(R.drawable.poster_placeholder)

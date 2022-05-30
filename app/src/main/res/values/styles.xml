@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DetailLabel"
+        parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">@dimen/detail_label</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="DetailBody" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">@dimen/detail_body</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

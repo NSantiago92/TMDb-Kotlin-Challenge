@@ -19,6 +19,8 @@ import com.nsantiago.tmdbkotlinchallenge.viewmodels.MovieListViewModel
 class MovieDetailFragment : Fragment() {
 
     private var letterId = -1
+    private var _binding: FragmentMovieDetailBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: MovieDetailViewModel by lazy {
         val activity = requireNotNull(this.activity) {
@@ -35,18 +37,20 @@ class MovieDetailFragment : Fragment() {
         }
         viewModel.loadMovieDetail(letterId)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentMovieDetailBinding.inflate(layoutInflater)
-       // binding.textField.text = letterId.toString()
+        _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         return binding.root
     }
-
 
 }

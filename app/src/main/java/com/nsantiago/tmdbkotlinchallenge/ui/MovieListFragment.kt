@@ -1,17 +1,14 @@
 package com.nsantiago.tmdbkotlinchallenge.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nsantiago.tmdbkotlinchallenge.databinding.FragmentMovieListBinding
@@ -31,10 +28,6 @@ class MovieListFragment : Fragment() {
     }
 
     private var movieListAdapter: MovieListAdapter? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,10 +58,6 @@ class MovieListFragment : Fragment() {
             }
         }
         return binding.root
-    }
-
-    private fun goToDetail() {
-
     }
 
     private fun onNetworkError() {
@@ -110,7 +99,7 @@ class MovieListAdapter : ListAdapter<Movie, MovieListAdapter.MovieListViewHolder
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val movie = getItem(position)
         holder.movieCard.setOnClickListener {
-            val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieId = movie.id)
+            val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieId = movie.id, movieTitle = movie.title)
             holder.itemView.findNavController().navigate(action)
         }
         holder.bind(movie)

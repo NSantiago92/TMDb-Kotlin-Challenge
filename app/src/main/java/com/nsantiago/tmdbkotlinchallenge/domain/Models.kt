@@ -10,6 +10,7 @@ data class Movie (
 data class MovieDetail (
     val id: Int,
     val title: String,
+    val originalTitle: String,
     val posterUrl: String,
     val backdropUrl: String,
     val genres: List<String>,
@@ -18,6 +19,6 @@ data class MovieDetail (
     val popularity: Float,
     val releaseDate: String,
     val status: String,
-    val voteCount: Float,
+    val voteCount: Int,
     val voteAverage: Float,
 )

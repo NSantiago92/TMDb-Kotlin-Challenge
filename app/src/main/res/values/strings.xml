@@ -3,4 +3,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="placeholder_overview">An elite DEA agent returns home after a failed mission when his family makes an unexpected discovery in their house – a stash of money worth $3 million. They soon face the danger and threat of a newly released criminal and his crew, who will do whatever it takes to retrieve the money, including kidnap the agent’s daughters. Stakes are high and lives are at risk in this head-to-head battle as the agent stops at nothing to protect his family against the money-hungry criminals.</string>
+    <string name="rating_label">Rating</string>
+    <string name="vote_average">%1$s avg</string>
+    <string name="release_date">%1$s  %2$s</string>
+    <string name="popularity_label">Popularity</string>
+    <string name="overview_label">Overview</string>
+    <string name="genres_label">Genres</string>
 </resources>
