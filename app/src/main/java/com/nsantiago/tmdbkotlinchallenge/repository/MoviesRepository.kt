@@ -10,6 +10,7 @@ import com.nsantiago.tmdbkotlinchallenge.domain.MovieDetail
 import com.nsantiago.tmdbkotlinchallenge.network.TMDbNetwork
 import com.nsantiago.tmdbkotlinchallenge.network.asDatabaseModel
 import com.nsantiago.tmdbkotlinchallenge.network.asDomainModel
+import com.nsantiago.tmdbkotlinchallenge.utils.notifyObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -19,7 +20,6 @@ enum class TMDbApiStatus { LOADING, REFRESHING, DONE, ERROR }
 
 class MoviesRepository(private val database: MoviesDatabase) {
 
-    //TODO: Fallback on cached movies to populate the list
     val movieList = MutableLiveData<MutableList<Movie>>()
     var movieDetail = MutableLiveData<MovieDetail>()
 
@@ -78,6 +78,7 @@ class MoviesRepository(private val database: MoviesDatabase) {
         withContext(Dispatchers.IO) {
             try {
                 movieList.value?.addAll(TMDbNetwork.TMDd.getPopularMovies(page).asDomainModel())
+                movieList.notifyObserver()
                 _apiStatus.postValue(TMDbApiStatus.DONE)
             } catch (networkError: IOException) {
                 _apiStatus.postValue(TMDbApiStatus.ERROR)

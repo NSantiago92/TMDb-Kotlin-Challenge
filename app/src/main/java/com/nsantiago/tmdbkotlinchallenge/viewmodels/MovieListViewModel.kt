@@ -1,6 +1,7 @@
 package com.nsantiago.tmdbkotlinchallenge.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.nsantiago.tmdbkotlinchallenge.database.getDatabase
 import com.nsantiago.tmdbkotlinchallenge.domain.Movie
@@ -13,11 +14,18 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
 
     //TODO: esto hay que inyectar
     private val moviesRepository = MoviesRepository(getDatabase(application))
-    val movieList = moviesRepository.movieList
+    private var searchQuery = ""
+    private val fullMovieList = moviesRepository.movieList
+    var movieList = MediatorLiveData<List<Movie>>()
     val apiStatus = moviesRepository.apiStatus
 
     init {
         loadMovies()
+        movieList.addSource(moviesRepository.movieList) {
+            movieList.value = it.filter {
+                it.title.contains(searchQuery, true)
+            }
+        }
     }
 
     private fun loadMovies() {
@@ -27,9 +35,19 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
 
     }
 
+    fun setSearchQuery(query: String) {
+        fullMovieList.value.let {
+            movieList.value = it?.filter { m ->
+                    m.title.contains(query, true)
+                }
+            }.also {
+                searchQuery = query
+        }
+    }
+
     fun loadNextPage() {
         viewModelScope.launch {
-                moviesRepository.loadNextPage()
+            moviesRepository.loadNextPage()
         }
     }
 

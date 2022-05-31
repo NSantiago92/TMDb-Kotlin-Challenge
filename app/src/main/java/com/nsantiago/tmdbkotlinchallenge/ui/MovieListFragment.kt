@@ -1,9 +1,11 @@
 package com.nsantiago.tmdbkotlinchallenge.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -41,7 +43,7 @@ class MovieListFragment : Fragment() {
         movieListAdapter = MovieListAdapter()
         binding.moviesRecyclerView.adapter = movieListAdapter
 
-
+        setSearchBarEventListener(binding.searchBar)
         binding.moviesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -54,12 +56,28 @@ class MovieListFragment : Fragment() {
         viewModel.apiStatus.observe(viewLifecycleOwner) {
             when (it) {
                 TMDbApiStatus.ERROR -> onNetworkError()
-                TMDbApiStatus.DONE -> movieListAdapter!!.notifyDataSetChanged()
+                TMDbApiStatus.DONE -> {
+                    movieListAdapter!!.notifyDataSetChanged()
+                    //movieListAdapter!!.notifyItemRangeInserted(viewModel.movieList.value!!.size)
+                    //movieListAdapter!!.notifyDataSetChanged()
+                }
             }
         }
         return binding.root
     }
 
+    private fun setSearchBarEventListener(searchView: SearchView) {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                viewModel.setSearchQuery(p0?:"")
+                return false
+            }
+        })
+    }
     private fun onNetworkError() {
         Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
     }
