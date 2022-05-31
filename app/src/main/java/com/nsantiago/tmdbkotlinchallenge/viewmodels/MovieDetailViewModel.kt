@@ -10,9 +10,10 @@ import com.nsantiago.tmdbkotlinchallenge.repository.MoviesRepository
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
-class MovieDetailViewModel(application: Application) : AndroidViewModel(application) {
-    //TODO: esto hay que inyectar
-    private val moviesRepository = MoviesRepository(getDatabase(application))
+class MovieDetailViewModel(
+    application: Application,
+    private val moviesRepository: MoviesRepository) : AndroidViewModel(application) {
+
     val movieDetail = moviesRepository.movieDetail
     val apiStatus = moviesRepository.apiStatus
 
@@ -23,14 +24,4 @@ class MovieDetailViewModel(application: Application) : AndroidViewModel(applicat
     }
 
 
-
-    class Factory(val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(MovieDetailViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return MovieDetailViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct view model")
-        }
-    }
 }

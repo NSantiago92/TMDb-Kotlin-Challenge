@@ -41,7 +41,7 @@ fun bindStatus(spinner: ProgressBar, status: TMDbApiStatus){
             }
         }
         TMDbApiStatus.ERROR -> {
-
+            spinner.visibility = View.GONE
         }
         TMDbApiStatus.DONE -> {
             spinner.visibility = View.GONE
@@ -52,6 +52,5 @@ fun bindStatus(spinner: ProgressBar, status: TMDbApiStatus){
                 gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
             }
         }
-        else -> TODO()
     }
 }

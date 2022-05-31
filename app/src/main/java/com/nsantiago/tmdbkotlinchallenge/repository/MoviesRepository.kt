@@ -1,13 +1,12 @@
 package com.nsantiago.tmdbkotlinchallenge.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nsantiago.tmdbkotlinchallenge.database.MoviesDatabase
 import com.nsantiago.tmdbkotlinchallenge.database.asDomainModel
 import com.nsantiago.tmdbkotlinchallenge.domain.Movie
 import com.nsantiago.tmdbkotlinchallenge.domain.MovieDetail
-import com.nsantiago.tmdbkotlinchallenge.network.TMDbNetwork
+import com.nsantiago.tmdbkotlinchallenge.network.TMDbService
 import com.nsantiago.tmdbkotlinchallenge.network.asDatabaseModel
 import com.nsantiago.tmdbkotlinchallenge.network.asDomainModel
 import com.nsantiago.tmdbkotlinchallenge.utils.notifyObserver
@@ -18,7 +17,9 @@ import java.io.IOException
 
 enum class TMDbApiStatus { LOADING, REFRESHING, DONE, ERROR }
 
-class MoviesRepository(private val database: MoviesDatabase) {
+class MoviesRepository(
+    private val database: MoviesDatabase,
+    private val api: TMDbService ) {
 
     val movieList = MutableLiveData<MutableList<Movie>>()
     var movieDetail = MutableLiveData<MovieDetail>()
@@ -47,7 +48,7 @@ class MoviesRepository(private val database: MoviesDatabase) {
         _apiStatus.value = TMDbApiStatus.LOADING
         return withContext(Dispatchers.IO) {
             try {
-                val movie = TMDbNetwork.TMDd.getMovieDetail(id)
+                val movie = api.getMovieDetail(id)
                 _apiStatus.postValue(TMDbApiStatus.DONE)
                 database.movieDao.insertMovie(movie.asDatabaseModel())
                 return@withContext movie.asDomainModel()
@@ -63,7 +64,7 @@ class MoviesRepository(private val database: MoviesDatabase) {
         withContext(Dispatchers.IO) {
             try {
                 movieList.postValue(
-                    TMDbNetwork.TMDd.getPopularMovies(1).asDomainModel().toMutableList()
+                    api.getPopularMovies(1).asDomainModel().toMutableList()
                 )
                 _apiStatus.postValue(TMDbApiStatus.DONE)
             } catch (networkError: IOException) {
@@ -77,7 +78,7 @@ class MoviesRepository(private val database: MoviesDatabase) {
         page += 1
         withContext(Dispatchers.IO) {
             try {
-                movieList.value?.addAll(TMDbNetwork.TMDd.getPopularMovies(page).asDomainModel())
+                movieList.value?.addAll(api.getPopularMovies(page).asDomainModel())
                 movieList.notifyObserver()
                 _apiStatus.postValue(TMDbApiStatus.DONE)
             } catch (networkError: IOException) {

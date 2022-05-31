@@ -14,6 +14,7 @@ interface TMDbService {
         const val LOW_RES_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342"
         const val HIGH_RES_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w780"
     }
+
     @GET("discover/movie")
     suspend fun getPopularMovies(
         @Query("page") page: Int,
@@ -27,11 +28,10 @@ interface TMDbService {
     ): NetworkMovieDetail
 }
 
-object TMDbNetwork {
-    private val retrofit = Retrofit.Builder()
+fun getTMDbService(): TMDbService {
+    return Retrofit.Builder()
         .baseUrl(TMDbService.BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
-
-    val TMDd = retrofit.create(TMDbService::class.java)
+        .create(TMDbService::class.java)
 }

@@ -17,16 +17,9 @@ abstract class MoviesDatabase: RoomDatabase() {
     abstract val movieDao: MovieDao
 }
 
-private lateinit var INSTANCE: MoviesDatabase
-
 fun getDatabase(context: Context): MoviesDatabase {
-    synchronized(MoviesDatabase::class.java) {
-        if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room
-                .databaseBuilder(context.applicationContext, MoviesDatabase::class.java,"movies")
-                .fallbackToDestructiveMigration()
-                .build()
-        }
-    }
-    return INSTANCE
+    return Room
+        .databaseBuilder(context.applicationContext, MoviesDatabase::class.java,"movies")
+        .fallbackToDestructiveMigration()
+        .build()
 }
