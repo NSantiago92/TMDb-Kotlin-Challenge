@@ -1,6 +1,6 @@
 package com.nsantiago.tmdbkotlinchallenge.network
 
-import com.nsantiago.tmdbkotlinchallenge.utils.EnvVariables
+import com.nsantiago.tmdbkotlinchallenge.common.EnvVariables
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET

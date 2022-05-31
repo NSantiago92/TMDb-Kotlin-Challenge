@@ -8,8 +8,11 @@
         <variable
             name="viewModel"
             type="com.nsantiago.tmdbkotlinchallenge.viewmodels.MovieDetailViewModel" />
+        <variable
+            name="fragment"
+            type="com.nsantiago.tmdbkotlinchallenge.ui.MovieDetailFragment" />
 
-        <import type="com.nsantiago.tmdbkotlinchallenge.utils.BindingConverters" />
+        <import type="com.nsantiago.tmdbkotlinchallenge.common.BindingConverters" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -221,8 +224,50 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/overview_label" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </androidx.core.widget.NestedScrollView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/network_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primary"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/network_error_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_network_error"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                android:id="@+id/network_error_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_network_error"
+                style="@style/DetailLabel"
+                app:layout_constraintTop_toBottomOf="@+id/network_error_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textAlignment="center"
+                android:padding="30dp"/>
+            <Button
+                android:id="@+id/network_error_btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/network_error_back_btn"
+                android:onClick="@{()->fragment.onNavigateBack()}"
+                app:layout_constraintTop_toBottomOf="@+id/network_error_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/network_error_btn_retry"/>
+            <Button
+                android:id="@+id/network_error_btn_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/network_error_retry_btn"
+                android:onClick="@{()->viewModel.reloadMovieDetail()}"
+                app:layout_constraintTop_toBottomOf="@+id/network_error_text"
+                app:layout_constraintStart_toEndOf="@+id/network_error_btn_back"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

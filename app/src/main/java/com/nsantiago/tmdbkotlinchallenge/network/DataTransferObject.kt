@@ -12,7 +12,7 @@ data class NetworkMovieContainer(val results: List<NetworkMovie>)
 @JsonClass(generateAdapter = true)
 data class NetworkMovie(
     val id: Int,
-    val poster_path: String,
+    val poster_path: String?,
     val title: String,
 )
 
@@ -25,11 +25,11 @@ data class Genre(
 data class NetworkMovieDetail(
     val id: Int,
     val title: String,
-    val poster_path: String,
-    val backdrop_path: String,
+    val poster_path: String?,
+    val backdrop_path: String?,
     val genres: List<Genre>,
     val original_language: String,
-    val overview: String,
+    val overview: String?,
     val popularity: Float,
     val release_date: String,
     val status: String,
@@ -46,7 +46,7 @@ fun NetworkMovieDetail.asDomainModel(): MovieDetail {
         backdropUrl = TMDbService.HIGH_RES_IMAGE_BASE_URL + backdrop_path,
         genres = genres.map {it.name},
         originalLanguage = original_language,
-        overview = overview,
+        overview = overview?:"",
         popularity = popularity,
         releaseDate = release_date,
         status = status,
@@ -60,11 +60,11 @@ fun NetworkMovieDetail.asDatabaseModel(): DatabaseMovie {
         id = id,
         title = title,
         original_title = original_title,
-        poster_path = poster_path,
-        backdrop_path = backdrop_path,
+        poster_path = poster_path?:"",
+        backdrop_path = backdrop_path?:"",
         genres = genres.joinToString(",") { it.name },
         original_language = original_language,
-        overview = overview,
+        overview = overview?:"",
         popularity = popularity,
         release_date = release_date,
         status = status,

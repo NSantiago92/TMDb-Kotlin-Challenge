@@ -25,14 +25,15 @@ class MovieListFragment : Fragment() {
 
     private val viewModel by viewModel<MovieListViewModel>()
     private var movieListAdapter: MovieListAdapter? = null
-
+    private var _binding: FragmentMovieListBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding = FragmentMovieListBinding.inflate(layoutInflater)
+        _binding = FragmentMovieListBinding.inflate(layoutInflater)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -47,8 +48,6 @@ class MovieListFragment : Fragment() {
                 if (!recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN) && viewModel.apiStatus.value !== TMDbApiStatus.REFRESHING) {
                     if (viewModel.searchQuery == "") {
                         viewModel.loadNextPage()
-                    } else {
-                        onLoadingPageError()
                     }
                 }
             }
@@ -58,10 +57,16 @@ class MovieListFragment : Fragment() {
             when (it) {
                 TMDbApiStatus.ERROR -> onNetworkError()
                 TMDbApiStatus.DONE -> {
+                    binding.networkError.visibility = View.GONE
                     movieListAdapter!!.notifyDataSetChanged()
-                    //movieListAdapter!!.notifyItemRangeInserted(viewModel.movieList.value!!.size)
-                    //movieListAdapter!!.notifyDataSetChanged()
                 }
+            }
+        }
+        viewModel.movieList.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                binding.queryError.visibility = View.VISIBLE
+            } else {
+                binding.queryError.visibility = View.GONE
             }
         }
         return binding.root
@@ -81,11 +86,13 @@ class MovieListFragment : Fragment() {
     }
 
     private fun onNetworkError() {
-        Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
+        if (viewModel.movieList.value.isNullOrEmpty()) {
+            binding.networkError.visibility = View.VISIBLE
+        } else {
+            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
+        }
     }
-    private fun onLoadingPageError() {
-        Toast.makeText(activity, "Clear your search to load more movies", Toast.LENGTH_SHORT).show()
-    }
+
 }
 
 

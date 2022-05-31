@@ -1,4 +1,4 @@
-package com.nsantiago.tmdbkotlinchallenge.utils
+package com.nsantiago.tmdbkotlinchallenge.common
 
 import androidx.lifecycle.MutableLiveData
 

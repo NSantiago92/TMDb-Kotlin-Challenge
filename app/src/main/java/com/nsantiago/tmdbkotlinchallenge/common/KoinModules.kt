@@ -1,4 +1,4 @@
-package com.nsantiago.tmdbkotlinchallenge.utils
+package com.nsantiago.tmdbkotlinchallenge.common
 
 import com.nsantiago.tmdbkotlinchallenge.database.getDatabase
 import com.nsantiago.tmdbkotlinchallenge.network.getTMDbService

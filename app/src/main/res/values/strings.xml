@@ -10,4 +10,9 @@
     <string name="overview_label">Overview</string>
     <string name="genres_label">Genres</string>
     <string name="search_hint">Search ...</string>
+    <string name="detail_network_error">Something is wrong with the network, couldn\'t load the movie details</string>
+    <string name="network_error_back_btn">Back</string>
+    <string name="network_error_retry_btn">Retry</string>
+    <string name="movie_list_network_error">Something is wrong with the network, couldn\'t load the movie list</string>
+    <string name="movie_list_query_error">Couldn\'t find any movie with that text</string>
 </resources>

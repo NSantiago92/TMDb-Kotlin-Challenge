@@ -22,7 +22,7 @@
             app:argType="integer" />
         <argument
             android:name="movieTitle"
-            android:defaultValue=""
+            android:defaultValue="&quot;&quot;"
             app:argType="string" />
     </fragment>
 </navigation>

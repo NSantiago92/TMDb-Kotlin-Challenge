@@ -47,6 +47,34 @@
                 tools:itemCount="16"
                 tools:listitem="@layout/movie_list_item" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/query_error"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/primary"
+                android:visibility="gone">
+                <ImageView
+                    android:id="@+id/query_error_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_query_error"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                    android:id="@+id/query_error_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/movie_list_query_error"
+                    style="@style/DetailLabel"
+                    app:layout_constraintTop_toBottomOf="@+id/query_error_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textAlignment="center"
+                    android:padding="30dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <ProgressBar
                 android:id="@+id/loading_spinner"
                 android:layout_width="wrap_content"
@@ -54,6 +82,42 @@
                 android:layout_gravity="center"
                 app:apiStatus="@{viewModel.apiStatus}" />
         </FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/network_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primary"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/network_error_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_network_error"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                android:id="@+id/network_error_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/movie_list_network_error"
+                style="@style/DetailLabel"
+                app:layout_constraintTop_toBottomOf="@+id/network_error_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textAlignment="center"
+                android:padding="30dp"/>
+
+            <Button
+                android:id="@+id/network_error_btn_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/network_error_retry_btn"
+                android:onClick="@{()->viewModel.refreshMovies()}"
+                app:layout_constraintTop_toBottomOf="@+id/network_error_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

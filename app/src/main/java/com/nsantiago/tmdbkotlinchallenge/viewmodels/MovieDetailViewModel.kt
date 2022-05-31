@@ -23,5 +23,10 @@ class MovieDetailViewModel(
         }
     }
 
-
+    fun reloadMovieDetail() {
+        viewModelScope.launch {
+            moviesRepository.reloadMovieDetail()
+        }
+    }
+    fun clearMovieDetail() = moviesRepository.clearMovieDetail()
 }
