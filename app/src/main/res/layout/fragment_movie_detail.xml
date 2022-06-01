@@ -223,8 +223,21 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/overview_label" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/rate_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_baseline_star_24"
+            tools:layout_editor_absoluteX="349dp"
+            tools:layout_editor_absoluteY="299dp"
+            android:focusable="true"
+            android:layout_margin="30dp"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/network_error"
             android:layout_width="match_parent"
@@ -264,10 +277,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/network_error_retry_btn"
-                android:onClick="@{()->viewModel.reloadMovieDetail()}"
+                android:onClick="@{()->viewModel.refreshMovieDetail()}"
                 app:layout_constraintTop_toBottomOf="@+id/network_error_text"
                 app:layout_constraintStart_toEndOf="@+id/network_error_btn_back"
                 app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

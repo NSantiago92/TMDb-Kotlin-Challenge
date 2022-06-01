@@ -15,4 +15,9 @@
     <string name="network_error_retry_btn">Retry</string>
     <string name="movie_list_network_error">Something is wrong with the network, couldn\'t load the movie list</string>
     <string name="movie_list_query_error">Couldn\'t find any movie with that text</string>
+    <string name="rate_dialog_title">Rate this movie</string>
+    <string name="rate_dialog_positive_btn">Submit</string>
+    <string name="rate_dialog_negative_btn">Cancel</string>
+    <string name="rate_movie_sucess_toast">The movie has been rated correctly!</string>
+    <string name="rate_movie_error_toast">Something went wrong, the movie was not rated</string>
 </resources>

@@ -3,6 +3,7 @@ package com.nsantiago.tmdbkotlinchallenge.common
 import com.nsantiago.tmdbkotlinchallenge.database.getDatabase
 import com.nsantiago.tmdbkotlinchallenge.network.getTMDbService
 import com.nsantiago.tmdbkotlinchallenge.repository.MoviesRepository
+import com.nsantiago.tmdbkotlinchallenge.sharedpreference.SharedPreferenceService
 import com.nsantiago.tmdbkotlinchallenge.viewmodels.MovieDetailViewModel
 import com.nsantiago.tmdbkotlinchallenge.viewmodels.MovieListViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -18,8 +19,11 @@ val serviceModule = module {
     single {
         getDatabase(androidContext())
     }
+    single {
+        SharedPreferenceService(androidContext())
+    }
     single<MoviesRepository> {
-        MoviesRepository(get(), get())
+        MoviesRepository(get(), get(), get())
     }
     viewModel {
         MovieListViewModel(androidApplication(), get())

@@ -4,15 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.18" />
+        <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/drawable/ic_baseline_star_64.xml" value="0.1" />
         <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/drawable/ic_connection_error.xml" value="0.2335" />
         <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/drawable/loading_animation.xml" value="0.2335" />
         <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/drawable/loading_img.xml" value="0.2335" />
         <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/drawable/scrim_bottom.xml" value="0.154" />
         <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/drawable/scrim_top.xml" value="0.154" />
         <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/layout/fragment_movie_detail.xml" value="0.5" />
+        <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/layout/fragment_movie_detail.xml" value="0.25" />
         <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/layout/fragment_movie_list.xml" value="0.2983425414364641" />
         <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/layout/movie_list_item.xml" value="0.1" />
+        <entry key="..\:/Programation/Android/TMDbKotlinChallenge/app/src/main/res/layout/rate_movie_dialog.xml" value="0.1" />
       </map>
     </option>
   </component>

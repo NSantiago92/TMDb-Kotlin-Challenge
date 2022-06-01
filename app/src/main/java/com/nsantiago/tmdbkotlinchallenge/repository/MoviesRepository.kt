@@ -6,10 +6,9 @@ import com.nsantiago.tmdbkotlinchallenge.database.MoviesDatabase
 import com.nsantiago.tmdbkotlinchallenge.database.asDomainModel
 import com.nsantiago.tmdbkotlinchallenge.domain.Movie
 import com.nsantiago.tmdbkotlinchallenge.domain.MovieDetail
-import com.nsantiago.tmdbkotlinchallenge.network.TMDbService
-import com.nsantiago.tmdbkotlinchallenge.network.asDatabaseModel
-import com.nsantiago.tmdbkotlinchallenge.network.asDomainModel
 import com.nsantiago.tmdbkotlinchallenge.common.notifyObserver
+import com.nsantiago.tmdbkotlinchallenge.network.*
+import com.nsantiago.tmdbkotlinchallenge.sharedpreference.SharedPreferenceService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -19,11 +18,13 @@ enum class TMDbApiStatus { LOADING, REFRESHING, DONE, ERROR }
 
 class MoviesRepository(
     private val database: MoviesDatabase,
-    private val api: TMDbService
+    private val api: TMDbService,
+    private val sharedPreferences: SharedPreferenceService,
 ) {
 
     val movieList = MutableLiveData<MutableList<Movie>>()
     var movieDetail = MutableLiveData<MovieDetail>()
+    private var sessionId: String? = null
     private val emptyMovie = MovieDetail(
         id = -1,
         title = "",
@@ -84,9 +85,12 @@ class MoviesRepository(
         }
     }
 
-    suspend fun reloadMovieDetail() {
-        loadMovieDetail(_currentDetailId)
+    suspend fun refreshMovieDetail() {
+        loadMovieDetailFromNetwork(_currentDetailId)?.let {
+            movieDetail.value = it
+        }
     }
+
     fun clearMovieDetail() {
         movieDetail.value = emptyMovie
     }
@@ -120,4 +124,51 @@ class MoviesRepository(
         }
     }
 
+    suspend fun rateMovie(id: Int, rating: Float): Boolean {
+        if (sessionId == null) sessionId = getSessionId()
+        if (sessionId == null) {
+            return false
+        }
+        return try {
+            val postStatus =
+                api.postMovieRating(
+                    movie_id = id,
+                    guest_session_id = sessionId!!,
+                    body = RateMovieBody(rating),
+                ).success
+            postStatus == true
+        } catch (networkError: IOException) {
+            sharedPreferences.removeGuestSessionId()
+            sessionId = null
+            false
+        }
+    }
+
+    private suspend fun getSessionId(): String? {
+        var newSession = sharedPreferences.getGuestSessionId()
+        if (newSession.isNullOrEmpty()) {
+            newSession = withContext(Dispatchers.IO) {
+                try {
+                    val networkSession = api.getGuestSession().guest_session_id
+                    networkSession?.let { sharedPreferences.putGuestSessionId(it) }
+                    return@withContext networkSession
+                } catch (networkError: IOException) {
+                    return@withContext null
+                }
+            }
+        }
+        return newSession
+    }
+
+    private suspend fun refreshSessionId(): String? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val networkSession = api.getGuestSession().guest_session_id
+                networkSession?.let { sharedPreferences.putGuestSessionId(it) }
+                return@withContext networkSession
+            } catch (networkError: IOException) {
+                return@withContext null
+            }
+        }
+    }
 }

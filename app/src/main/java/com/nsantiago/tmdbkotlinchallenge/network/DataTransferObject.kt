@@ -38,6 +38,27 @@ data class NetworkMovieDetail(
     val original_title: String,
     )
 
+@JsonClass(generateAdapter = true)
+data class RateMovieResponse(
+    val status_code: Int,
+    val success: Boolean?,
+    val status_message: String,
+)
+
+@JsonClass(generateAdapter = true)
+data class GuestSessionResponse(
+    val success: Boolean?,
+    val guest_session_id: String?,
+    val expires_at: String?,
+    val status_message: String?,
+    val status_code: Int ?,
+)
+
+@JsonClass(generateAdapter = true)
+data class RateMovieBody(
+    val value:Float,
+)
+
 fun NetworkMovieDetail.asDomainModel(): MovieDetail {
     return MovieDetail(
         id = id,

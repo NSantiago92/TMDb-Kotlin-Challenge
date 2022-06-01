@@ -1,12 +1,10 @@
 package com.nsantiago.tmdbkotlinchallenge.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.nsantiago.tmdbkotlinchallenge.database.getDatabase
 import com.nsantiago.tmdbkotlinchallenge.repository.MoviesRepository
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
@@ -17,16 +15,21 @@ class MovieDetailViewModel(
     val movieDetail = moviesRepository.movieDetail
     val apiStatus = moviesRepository.apiStatus
 
-    fun loadMovieDetail(id: Int) {
-        viewModelScope.launch {
+    fun loadMovieDetail(id: Int) = viewModelScope.launch {
             moviesRepository.loadMovieDetail(id)
+    }
+
+    fun refreshMovieDetail() = viewModelScope.launch {
+            moviesRepository.refreshMovieDetail()
+    }
+
+    fun clearMovieDetail() = moviesRepository.clearMovieDetail()
+
+    fun rateMovie(id:Int, rating: Float): LiveData<Boolean> {
+        return liveData {
+            emit(moviesRepository.rateMovie(id, rating))
         }
     }
 
-    fun reloadMovieDetail() {
-        viewModelScope.launch {
-            moviesRepository.reloadMovieDetail()
-        }
-    }
-    fun clearMovieDetail() = moviesRepository.clearMovieDetail()
+
 }

@@ -3,9 +3,7 @@ package com.nsantiago.tmdbkotlinchallenge.network
 import com.nsantiago.tmdbkotlinchallenge.common.EnvVariables
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 interface TMDbService {
@@ -26,6 +24,20 @@ interface TMDbService {
         @Path("id") id: Int,
         @Query("api_key") apikey: String = EnvVariables.API_KEY
     ): NetworkMovieDetail
+
+    @GET("authentication/guest_session/new")
+    suspend fun getGuestSession(
+        @Query("api_key") apikey: String = EnvVariables.API_KEY
+    ):GuestSessionResponse
+
+    @Headers("Content-Type: application/json")
+    @POST("movie/{movie_id}/rating")
+    suspend fun postMovieRating(
+        @Path("movie_id") movie_id: Int,
+        @Query("guest_session_id") guest_session_id: String,
+        @Body body: RateMovieBody,
+        @Query("api_key") apikey: String = EnvVariables.API_KEY,
+    ):RateMovieResponse
 }
 
 fun getTMDbService(): TMDbService {
