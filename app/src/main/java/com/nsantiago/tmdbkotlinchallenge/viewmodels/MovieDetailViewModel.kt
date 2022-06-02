@@ -1,12 +1,12 @@
 package com.nsantiago.tmdbkotlinchallenge.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.*
-import com.nsantiago.tmdbkotlinchallenge.database.getDatabase
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.nsantiago.tmdbkotlinchallenge.repository.MoviesRepository
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
 
 class MovieDetailViewModel(
     application: Application,

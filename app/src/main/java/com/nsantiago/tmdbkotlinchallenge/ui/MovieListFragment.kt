@@ -1,14 +1,12 @@
 package com.nsantiago.tmdbkotlinchallenge.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -19,7 +17,6 @@ import com.nsantiago.tmdbkotlinchallenge.domain.Movie
 import com.nsantiago.tmdbkotlinchallenge.repository.TMDbApiStatus
 import com.nsantiago.tmdbkotlinchallenge.viewmodels.MovieListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.definition.Kind
 
 class MovieListFragment : Fragment() {
 

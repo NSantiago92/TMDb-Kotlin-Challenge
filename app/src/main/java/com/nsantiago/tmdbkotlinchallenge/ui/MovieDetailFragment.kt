@@ -1,8 +1,6 @@
 package com.nsantiago.tmdbkotlinchallenge.ui
 
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,11 +69,11 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun onMovieRateDialog() {
-        var rating = 5.0f;
+        var rating = 5.0f
         val builder: AlertDialog.Builder? = activity?.let {
             AlertDialog.Builder(it)
         }
-        val inflater = requireActivity().layoutInflater;
+        val inflater = requireActivity().layoutInflater
         val dialogView = RateMovieDialogBinding.inflate(inflater)
         dialogView.rateSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -111,7 +109,7 @@ class MovieDetailFragment : Fragment() {
 
     private fun onRateMovieSuccess() {
         viewModel.refreshMovieDetail()
-        Toast.makeText(activity, R.string.rate_movie_sucess_toast, Toast.LENGTH_LONG).show()
+        Toast.makeText(activity, R.string.rate_movie_success_toast, Toast.LENGTH_LONG).show()
     }
     private fun onRateMovieError() = Toast.makeText(activity, R.string.rate_movie_error_toast, Toast.LENGTH_LONG).show()
 

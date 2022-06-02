@@ -22,7 +22,7 @@ val serviceModule = module {
     single {
         SharedPreferenceService(androidContext())
     }
-    single<MoviesRepository> {
+    single {
         MoviesRepository(get(), get(), get())
     }
     viewModel {

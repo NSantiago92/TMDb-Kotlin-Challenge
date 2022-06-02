@@ -159,16 +159,4 @@ class MoviesRepository(
         }
         return newSession
     }
-
-    private suspend fun refreshSessionId(): String? {
-        return withContext(Dispatchers.IO) {
-            try {
-                val networkSession = api.getGuestSession().guest_session_id
-                networkSession?.let { sharedPreferences.putGuestSessionId(it) }
-                return@withContext networkSession
-            } catch (networkError: IOException) {
-                return@withContext null
-            }
-        }
-    }
 }

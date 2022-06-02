@@ -1,7 +1,6 @@
 package com.nsantiago.tmdbkotlinchallenge.database
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao

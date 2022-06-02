@@ -7,5 +7,5 @@ object EnvVariables {
         directory = "./assets"
         filename = "env"
     }
-    val API_KEY = dotenv["API_KEY"]
+    val API_KEY: String = dotenv["API_KEY"]
 }

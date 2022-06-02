@@ -2,7 +2,6 @@ package com.nsantiago.tmdbkotlinchallenge.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.nsantiago.tmdbkotlinchallenge.domain.Movie
 import com.nsantiago.tmdbkotlinchallenge.domain.MovieDetail
 import com.nsantiago.tmdbkotlinchallenge.network.TMDbService
 
