@@ -15,12 +15,6 @@ The goal of the challenge was to develop an Android app that consumes <a href="h
 - Movies can be selected to display details
 - The user can submit film ratings to TMDb.
 - Cache of movie details to save on network usage
-
- ## Setup
- 
- In order to make use of the API you'll need a TMDb api key. You can get one for free by signing up <a href="https://www.themoviedb.org/signup">here</a>.
- Then create an env file (not ".env") on /assets: 
-> API_KEY = (yout TMDb api key)
  
  ## Screenshots
 
