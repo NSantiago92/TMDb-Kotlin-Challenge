@@ -97,7 +97,4 @@ dependencies {
 
     //Loading images
     implementation("io.coil-kt:coil-compose:2.1.0")
-
-    //dotenv for environment variables
-    implementation("io.github.cdimascio:dotenv-kotlin:6.2.2")
 }

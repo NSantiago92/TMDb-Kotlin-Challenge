@@ -61,7 +61,6 @@ class MoviesRepository(
             return
         }
         _apiStatus.value = TMDbApiStatus.ERROR
-
     }
 
     private suspend fun loadMovieDetailFromDb(id: Int): MovieDetail? {
